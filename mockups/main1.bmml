@@ -1,0 +1,78 @@
+<mockup version="1.0" skin="sketch" fontFace="Balsamiq Sans" measuredW="982" measuredH="419" mockupW="957" mockupH="400">
+  <controls>
+    <control controlID="1" controlTypeID="com.balsamiq.mockups::BrowserWindow" x="25" y="19" w="-1" h="-1" measuredW="450" measuredH="400" zOrder="0" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Ezvestment%0Ahttp%3A//www.ezvestment.com</text>
+        <verticalScrollbar>false</verticalScrollbar>
+      </controlProperties>
+    </control>
+    <control controlID="2" controlTypeID="com.balsamiq.mockups::PieChart" x="62" y="108" w="106" h="99" measuredW="180" measuredH="180" zOrder="1" locked="false" isInGroup="-1"/>
+    <control controlID="3" controlTypeID="com.balsamiq.mockups::HSlider" x="47" y="216" w="132" h="-1" measuredW="33" measuredH="11" zOrder="2" locked="false" isInGroup="-1">
+      <controlProperties>
+        <value>66</value>
+      </controlProperties>
+    </control>
+    <control controlID="5" controlTypeID="com.balsamiq.mockups::List" x="40" y="239" w="139" h="96" measuredW="100" measuredH="126" zOrder="3" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>%5Bx%5D%20iSHare%3A%20US%20Stock%0A%5Bx%5D%20Vanguard%3A%20Foreign%20Stock%0A%5Bx%5D%20iSHare%3A%20Bond%0A%7E%5B+%5D%20Int%27l%20MSCI%7E</text>
+      </controlProperties>
+    </control>
+    <control controlID="6" controlTypeID="com.balsamiq.mockups::Button" x="122" y="348" w="-1" h="-1" measuredW="57" measuredH="27" zOrder="4" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Share</text>
+      </controlProperties>
+    </control>
+    <control controlID="26" controlTypeID="com.balsamiq.mockups::TabBar" x="193" y="95" w="271" h="291" measuredW="207" measuredH="100" zOrder="5" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Projected%2C%20Historical</text>
+      </controlProperties>
+    </control>
+    <control controlID="27" controlTypeID="com.balsamiq.mockups::LineChart" x="211" y="130" w="240" h="229" measuredW="187" measuredH="175" zOrder="6" locked="false" isInGroup="-1"/>
+    <control controlID="28" controlTypeID="com.balsamiq.mockups::Label" x="211" y="363" w="-1" h="-1" measuredW="47" measuredH="21" zOrder="7" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Present</text>
+      </controlProperties>
+    </control>
+    <control controlID="29" controlTypeID="com.balsamiq.mockups::Label" x="382" y="363" w="-1" h="-1" measuredW="69" measuredH="21" zOrder="8" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Target%20year</text>
+      </controlProperties>
+    </control>
+    <control controlID="30" controlTypeID="com.balsamiq.mockups::Label" x="197" y="132" w="18" h="-1" measuredW="13" measuredH="21" zOrder="9" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>%25</text>
+      </controlProperties>
+    </control>
+    <control controlID="31" controlTypeID="com.balsamiq.mockups::BrowserWindow" x="532" y="19" w="-1" h="-1" measuredW="450" measuredH="400" zOrder="10" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Ezvestment%0Ahttp%3A//www.ezvestment.com</text>
+      </controlProperties>
+    </control>
+    <control controlID="32" controlTypeID="com.balsamiq.mockups::Label" x="539" y="107" w="215" h="-1" measuredW="197" measuredH="21" zOrder="11" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Let%27s%20create%20your%20investment%20plan</text>
+      </controlProperties>
+    </control>
+    <control controlID="33" controlTypeID="com.balsamiq.mockups::PieChart" x="782" y="128" w="-1" h="-1" measuredW="180" measuredH="180" zOrder="12" locked="false" isInGroup="-1"/>
+    <control controlID="34" controlTypeID="com.balsamiq.mockups::Paragraph" x="539" y="143" w="-1" h="-1" measuredW="200" measuredH="80" zOrder="13" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Q1%3A%20How%20often%20do%20you%20hit%20up%20a%20Casino%3F</text>
+      </controlProperties>
+    </control>
+    <control controlID="35" controlTypeID="com.balsamiq.mockups::RadioButtonGroup" x="539" y="175" w="-1" h="-1" measuredW="214" measuredH="83" zOrder="14" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>%28o%29%20Are%20you%20kidding%3F%20I%20live%20in%20one%0A%28%20%29%20Whenever%20I%27m%20near%20one%0A%28%20%29%20When%20I%27m%20in%20Vegas%0A%28%29%20I%20like%20board%20games%20better.%20Yeah...</text>
+      </controlProperties>
+    </control>
+    <control controlID="36" controlTypeID="com.balsamiq.mockups::Button" x="682" y="273" w="-1" h="-1" measuredW="50" measuredH="27" zOrder="15" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Next</text>
+      </controlProperties>
+    </control>
+    <control controlID="37" controlTypeID="com.balsamiq.mockups::ButtonBar" x="784" y="100" w="-1" h="-1" measuredW="160" measuredH="27" zOrder="16" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>1%2C%202%2C%203%2C%204%2C%205</text>
+      </controlProperties>
+    </control>
+  </controls>
+</mockup>
