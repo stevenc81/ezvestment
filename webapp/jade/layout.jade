@@ -1,0 +1,25 @@
+!!!
+html
+    head
+        block head
+            title Bootstrap
+            link(rel='stylesheet', href='css/bootstrap.min.css')
+            | <style>
+            | body { padding-top: 60px; }
+            | </style>
+            link(rel='stylesheet', href='css/bootstrap-responsive.min.css')
+            link(rel='stylesheet', href='css/style.css')
+            //- script(src='https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js')
+            //- script(src='/scripts/bootstrap.min.js')
+            
+            script(src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js")
+            script(src="//ajax.googleapis.com/ajax/libs/angularjs/1.0.6/angular.min.js")
+            script(src="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/2.3.1/js/bootstrap.min.js")
+            script(src="//cdnjs.cloudflare.com/ajax/libs/angular-strap/0.7.2/angular-strap.min.js")
+
+    body
+        include header
+
+        block content
+
+        include footer

@@ -1,0 +1,11 @@
+{
+  "name": "ezvestment_webapp",
+  "version": "0.1.0",
+  "private": true,
+  "devDependencies": {
+    "grunt": "*",
+    "grunt-contrib-jade": "*",
+    "grunt-contrib-less": "*",
+    "grunt-contrib-watch": "*"
+  }
+}
