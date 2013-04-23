@@ -19,6 +19,7 @@
     </control>
     <control controlID="40" controlTypeID="com.balsamiq.mockups::TabBar" x="22" y="91" w="447" h="303" measuredW="206" measuredH="100" zOrder="3" locked="false" isInGroup="-1">
       <controlProperties>
+        <selectedIndex>0</selectedIndex>
         <text>Allocation%2C%20Historical</text>
       </controlProperties>
     </control>
@@ -56,6 +57,7 @@
     </control>
     <control controlID="49" controlTypeID="com.balsamiq.mockups::TabBar" x="491" y="91" w="450" h="303" measuredW="206" measuredH="100" zOrder="12" locked="false" isInGroup="-1">
       <controlProperties>
+        <selectedIndex>0</selectedIndex>
         <text>Allocation%2C%20Historical</text>
       </controlProperties>
     </control>
@@ -105,6 +107,7 @@
     </control>
     <control controlID="69" controlTypeID="com.balsamiq.mockups::TabBar" x="969" y="91" w="450" h="303" measuredW="206" measuredH="100" zOrder="24" locked="false" isInGroup="-1">
       <controlProperties>
+        <selectedIndex>1</selectedIndex>
         <text>Allocation%2C%20Historical</text>
       </controlProperties>
     </control>
