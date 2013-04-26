@@ -1,10 +1,11 @@
 var app = angular.module('ezvestment', ['$strap.directives']).
     config(function ($routeProvider) {
         $routeProvider.
-            when('/', {controller: IndexCtrl, templateUrl: 'index.html'});
+            when('/', {controller: AllocCtrl, templateUrl: 'alloc.html'}).
+            otherwise({redirectTo: '/'});
     });
 
-function IndexCtrl($scope) {
+function AllocCtrl($scope) {
     console.log('# In IndexCtrl');
     $scope.project_name = 'Ezvestment';
 }

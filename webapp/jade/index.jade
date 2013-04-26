@@ -1,6 +1,7 @@
 extends layout
 
 block content
-    div.container
-        h1 {{project_name}} Program Name
-        p Hello World
+    div(ng-view)
+
+    script(type="text/ng-template", id="alloc.html")
+        include alloc

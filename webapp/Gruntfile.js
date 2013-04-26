@@ -9,7 +9,7 @@ module.exports = function(grunt) {
         }
         return false;
     };
-    
+
     function getFiles(srcdir, destdir, wildcard, ext, except) {
         var path = require('path');
         var files = {};
@@ -32,7 +32,7 @@ module.exports = function(grunt) {
                         debug: true
                     }
                 },
-                files: getFiles('jade/', './', '**/*.jade', 'html', [])
+                files: getFiles('jade/', './', '**/*.jade', 'html', ['layout.jade', 'header.jade', 'footer.jade', 'alloc.jade'])
             }
         },
         less: {
