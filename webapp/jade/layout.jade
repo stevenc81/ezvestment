@@ -4,6 +4,7 @@ html(ng-app="ezvestment")
         block head
             title Bootstrap
             link(rel='stylesheet', href='css/libs/bootstrap.min.css')
+            link(rel='stylesheet', href='css/ui-lightness/jquery-ui-1.10.2.custom.min.css')
             | <style>
             | body { padding-top: 60px; }
             | </style>
@@ -16,8 +17,10 @@ html(ng-app="ezvestment")
             script(src="js/libs/angular.min.js")
             script(src="js/libs/bootstrap.min.js")
             script(src="js/libs/angular-strap.min.js")
+            script(src="js/libs/jquery-ui-1.10.2.custom.min.js")
 
             script(src="js/ezvestment.js")
+            script(src="js/ezvestment_directives.js")
 
     body
         include header
