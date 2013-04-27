@@ -11,4 +11,6 @@ function HeaderCtrl($scope) {
 
 function AllocCtrl($scope) {
     console.log('# In AllocCtrl');
+
+    $scope.slider_value = 0;
 }

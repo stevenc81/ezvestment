@@ -11,6 +11,8 @@ app.directive('slider', function() {
                 values: 50,
                 slide: function(event, ui) {
                     console.log(ui.value);
+                    scope.slider_value = ui.value;
+                    scope.$apply();
                 }
             });
         }
