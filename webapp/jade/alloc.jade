@@ -2,7 +2,15 @@ div.container
     h1 My allocation potential
     .row
         .span3.controls
+            .row
+                .span1 {{portionBounds}}%
+                .span1
+                .span1(style="text-align:right;") {{portionStocks}}%
             div(slider)
+            .row
+                .span1 Bounds
+                .span1
+                .span1(style="text-align:right;") Stocks
             .row
                 .span2
                     h2 Allocation
