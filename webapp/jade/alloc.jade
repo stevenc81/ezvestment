@@ -6,8 +6,9 @@ div.container
             .row
                 .span2
                     h2 Allocation
-                .span1.btn-group(style="height: 60px")
-                    button.btn(type="button", style="vertical-align: middle")%
+                .span1.btn-group
+                    button.btn.active(type="button")%
+                    button.btn(type="button")$
             table.table-striped.table.table-hover
                 tbody
                     tr
@@ -20,6 +21,6 @@ div.container
                         td VTIfggfghghghghsdsdf
                         td 12%
             div Chance to lose money
-            div value: {{slider_value}}
+            div {{slider_value}} %
         .span9
 
