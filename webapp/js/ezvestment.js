@@ -1,4 +1,4 @@
-var app = angular.module('ezvestment', ['$strap.directives', 'ezvestment-directives']).
+var app = angular.module('ezvestment', ['ezvestment-directives']).
     config(function ($routeProvider) {
         $routeProvider.
             when('/', {controller: AllocCtrl, templateUrl: 'alloc.html'}).

@@ -1,3 +1,9 @@
 .controls {
   border: 1px solid #e6e6e6;
 }
+.text-right-align {
+  text-align: right;
+}
+.stub {
+  color: red;
+}

@@ -1,35 +1,31 @@
-div.container
+div.container 
     h1 My allocation potential
     .row
         .span3.controls
             .row
                 .span1 {{portionBounds}}%
-                .span1
-                .span1(style="text-align:right;") {{portionStocks}}%
+                .span1.offset1.text-right-align {{portionStocks}}%b
             div(slider)
             .row
                 .span1 Bounds
-                .span1
-                .span1(style="text-align:right;") Stocks
+                .span1.offset1.text-right-align Stocks
             .row
-                .span3(style="position: relative; line-height:45px")
-                    strong(style="font-size: 24pt") Allocation
-                    .btn-group(style="position: absolute; right: 0;")
-                        button.btn.active(type="button")%
-                        button.btn(type="button")$
+                .span1
+                    strong(tooltip="aloha ya!") Allocation
+                .span1.offset1.text-right-align %
             table.table-striped.table.table-hover
                 tbody
                     tr
-                        td VTIfggfghghghghsdsdf
-                        td 12%
+                        td.stub VTIfggfghghghghsdsdf
+                        td.stub 12%
                     tr
-                        td VTIfggfghghghghsdsdf
-                        td 12%
+                        td.stub VTIfggfghghghghsdsdf
+                        td.stub 12%
                     tr
-                        td VTIfggfghghghghsdsdf
-                        td 12%
-            div Chance to lose money
-            div {{slider_value}} %
+                        td.stub VTIfggfghghghghsdsdf
+                        td.stub 12%
+            strong Chance to lose money
+            div.stub STUB VALUE %
         .span6
             .span2
             .span2
@@ -38,4 +34,3 @@ div.container
                     button.btn 5y
                     button.btn 10y
                     button.btn Set Target
-

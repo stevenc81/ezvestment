@@ -21,3 +21,16 @@ app.directive('slider', function() {
     };
 });
 
+app.directive('tooltip', function () {
+    console.log('# In Tooltip directive');
+    return {
+        restrict:'A',
+        link: function(scope, element, attrs)
+        {
+            element.tooltip({
+                placement: 'top',
+                title: attrs.tooltip
+            });
+        }
+    };
+});
