@@ -12,7 +12,6 @@ function HeaderCtrl($scope) {
 function AllocCtrl($scope) {
     console.log('# In AllocCtrl');
 
-    $scope.slider_value = 0;
     $scope.portionBounds = 100;
     $scope.portionStocks = 0;
 }

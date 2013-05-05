@@ -4,14 +4,14 @@ div.container
         .span3.controls
             .row
                 .span1 {{portionBounds}}%
-                .span1.offset1.text-right-align {{portionStocks}}%b
+                .span1.offset1.text-right-align {{portionStocks}}%
             div(slider)
             .row
                 .span1 Bounds
                 .span1.offset1.text-right-align Stocks
             .row
                 .span1
-                    strong(tooltip="aloha ya!") Allocation
+                    strong Allocation
                 .span1.offset1.text-right-align %
             table.table-striped.table.table-hover
                 tbody
@@ -26,11 +26,13 @@ div.container
                         td.stub 12%
             strong Chance to lose money
             div.stub STUB VALUE %
+            span(tooltip) test tooltip
         .span6
-            .span2
-            .span2
+            .span4.offset2
                 .btn-group
-                    button.btn 1y
+                    button.btn.active 1y
                     button.btn 5y
                     button.btn 10y
                     button.btn Set Target
+            .span
+                div(chart, id="chart1")
