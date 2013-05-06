@@ -32,7 +32,7 @@ module.exports = function(grunt) {
                         debug: true
                     }
                 },
-                files: getFiles('jade/', './', '**/*.jade', 'html', ['layout.jade', 'header.jade', 'footer.jade', 'alloc.jade'])
+                files: getFiles('jade/', './', '**/*.jade', 'html', ['layout.jade', 'header.jade', 'footer.jade', 'alloc.jade', 'about.jade', 'contact.jade'])
             }
         },
         less: {

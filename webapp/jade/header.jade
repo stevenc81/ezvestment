@@ -1,4 +1,4 @@
-div.navbar.navbar-inverse.navbar-fixed-top(ng-controller="HeaderCtrl")
+div.navbar.navbar-inverse.navbar-fixed-top
     div.navbar-inner
         div.container
             a.btn.btn-navbar(data-toggle="collapse", data-target=".nav-collapse")
@@ -8,13 +8,13 @@ div.navbar.navbar-inverse.navbar-fixed-top(ng-controller="HeaderCtrl")
             a.brand(href="#")
                 | Ezvestment
             div.nav-collapse.collapse
-                ul.nav
-                    li.active
+                ul.nav(ng-controller="NavCtrl")
+                    li.active(ng-class="navClass('home')")
                         a(href="#")
                             | Home
-                    li
+                    li(ng-class="navClass('about')")
                         a(href="#about")
                             | About
-                    li
+                    li(ng-class="navClass('contact')")
                         a(href="#contact")
                             | Contact
