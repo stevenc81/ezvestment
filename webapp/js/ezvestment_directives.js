@@ -14,17 +14,7 @@ app.directive('slider', function() {
                     scope.portionBounds = 100 - ui.value;
                     scope.portionStocks = ui.value;
 
-                    var newData = [];
-                    for (i = 1; i < 10; i++) {
-                        x = i;
-                        y = scope.portionStocks*i/10;
-                        newData.push([x, y]);
-                    }
-
-                    scope.plot1.series[0].data = newData;
-                    // scope.plot1.resetAxesScale();
-                    scope.plot1.replot();
-
+                    scope.$broadcast('slider-update');
                     scope.$apply();
                 }
             });
@@ -50,32 +40,45 @@ app.directive('chart', function() {
    console.log('# In chart directive');
     return {
         link: function(scope, element, attrs) {
-            element.ready(function(){
-                var plot1 = $.jqplot ('chart1', [[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]], {
-                        title: 'Main Chart',
-                        axesDefaults: {
-                            labelRenderer: $.jqplot.CanvasAxisLabelRenderer
+            // element.ready(function(){
+            var plot1 = $.jqplot ('chart1', [[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]], {
+                    title: 'Main Chart',
+                    axesDefaults: {
+                        labelRenderer: $.jqplot.CanvasAxisLabelRenderer
+                    },
+                    series: [{
+                        showMarker: false
+                    }],
+                    axes: {
+                        xaxis: {
+                            min: 0,
+                            max: 10,
+                            numberTicks: 11,
+                            label: '% of Return'
                         },
-                        series: [{
-                            showMarker: false
-                        }],
-                        axes: {
-                            xaxis: {
-                                min: 0,
-                                max: 10,
-                                numberTicks: 11,
-                                label: '% of Return'
-                            },
-                            yaxis : {
-                                min: 0,
-                                max: 100,
-                                label: 'Year'
-                            }
+                        yaxis : {
+                            min: 0,
+                            max: 100,
+                            label: 'Year'
                         }
-                    });
+                    }
+                });
 
-                scope.plot1 = plot1;
+            scope.$on('slider-update', function() {
+
+                var newData = [];
+                for (i = 1; i < 10; i++) {
+                    x = i;
+                    y = scope.portionStocks*i/10;
+                    newData.push([x, y]);
+                }
+
+                plot1.series[0].data = newData;
+                // scope.plot1.resetAxesScale();
+                plot1.replot();
+
             });
+            // });
         }
     };
 });
