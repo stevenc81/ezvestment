@@ -1,25 +1,17 @@
 var app = angular.module('ezvestment', ['ezvestment-directives']).
     config(function ($routeProvider) {
         $routeProvider.
-            when('/', {controller: AllocCtrl, templateUrl: 'alloc.html'}).
-            when('/about', {templateUrl: 'about.html'}).
-            when('/contact', {templateUrl: 'contact.html'}).
+            when('/', {activetab: 'Home', controller: AllocCtrl, templateUrl: 'alloc.html'}).
+            when('/About', {activetab: 'About', templateUrl: 'about.html'}).
+            when('/Contact', {activetab: 'Contact', templateUrl: 'contact.html'}).
             otherwise({redirectTo: '/'});
     });
 
-function NavCtrl($scope, $location) {
+function NavCtrl($scope, $route) {
     console.log('# In NavCtrl');
 
-    $scope.navItems = [
-        {'name': 'Home', 'url': 'home'},
-        {'name': 'About', 'url': 'about'},
-        {'name': 'Contact', 'url': 'contact'}
-    ];
-
-    $scope.isActive = function(page) {
-        var currentRoute = $location.path().substring(1) || 'home';
-        return page === currentRoute;
-    };
+    $scope.navItems = ['Home', 'About', 'Contact'];
+    $scope.$route = $route;
 }
 
 function AllocCtrl($scope) {

@@ -9,6 +9,6 @@ div.navbar.navbar-inverse.navbar-fixed-top
                 | Ezvestment
             div.nav-collapse.collapse
                 ul.nav(ng-controller="NavCtrl")
-                    li(ng-repeat="item in navItems", ng-class="{active: isActive(item.url)}")
-                        a(ng-href="#/{{item.url}}")
-                            | {{item.name}}
+                    li(ng-repeat="item in navItems", ng-class="{active: $route.current.activetab == item}")
+                        a(ng-href="#/{{item}}")
+                            | {{item}}
