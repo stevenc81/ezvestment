@@ -17,8 +17,6 @@ function NavCtrl($scope, $location) {
     ];
 
     $scope.navClass = function(page) {
-console.log(page);
-        console.log(page + 'jdhfjf' + $location.path());
         var currentRoute = $location.path().substring(1) || 'home';
         return page === currentRoute ? 'active' : '';
     };
