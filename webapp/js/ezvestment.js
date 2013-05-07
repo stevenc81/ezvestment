@@ -9,7 +9,16 @@ var app = angular.module('ezvestment', ['ezvestment-directives']).
 
 function NavCtrl($scope, $location) {
     console.log('# In NavCtrl');
+
+    $scope.navItems = [
+        {'name': 'Home', 'url': 'home'},
+        {'name': 'About', 'url': 'about'},
+        {'name': 'Contact', 'url': 'contact'}
+    ];
+
     $scope.navClass = function(page) {
+console.log(page);
+        console.log(page + 'jdhfjf' + $location.path());
         var currentRoute = $location.path().substring(1) || 'home';
         return page === currentRoute ? 'active' : '';
     };
@@ -20,4 +29,11 @@ function AllocCtrl($scope) {
 
     $scope.portionBounds = 100;
     $scope.portionStocks = 0;
+
+    $scope.myOptions = ['1y', '5y', '10y', 'Set Target'];
+    $scope.myModel = '10y';
+
+    $scope.$watch('myModel', function(v){
+        console.log('# Duration changed to:', v);
+    });
 }

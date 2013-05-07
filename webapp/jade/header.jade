@@ -9,12 +9,6 @@ div.navbar.navbar-inverse.navbar-fixed-top
                 | Ezvestment
             div.nav-collapse.collapse
                 ul.nav(ng-controller="NavCtrl")
-                    li.active(ng-class="navClass('home')")
-                        a(href="#")
-                            | Home
-                    li(ng-class="navClass('about')")
-                        a(href="#about")
-                            | About
-                    li(ng-class="navClass('contact')")
-                        a(href="#contact")
-                            | Contact
+                    li(ng-repeat="item in navItems", ng-class="navClass(item.url)")
+                        a(ng-href="#/{{item.url}}")
+                            | {{item.name}}

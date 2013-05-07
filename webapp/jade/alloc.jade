@@ -1,4 +1,4 @@
-div.container 
+div.container
     h1 My allocation potential
     .row
         .span3.controls
@@ -28,10 +28,6 @@ div.container
             div.stub STUB VALUE %
         .span6
             .span4.offset2
-                .btn-group
-                    button.btn.active 1y
-                    button.btn 5y
-                    button.btn 10y
-                    button.btn Set Target
+                buttons-radio.btn-group(data-toggle='buttons-radio', model='myModel', options='myOptions')
             .span
                 div(chart, id="chart1")
