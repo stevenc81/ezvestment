@@ -30,7 +30,7 @@ app.directive('tooltip', function() {
         link: function(scope, element, attrs) {
             element.tooltip({
                 placement: 'top',
-                title: 'jdfh'
+                title: 'testing tooltip'
             });
         }
     };
@@ -40,7 +40,6 @@ app.directive('chart', function() {
    console.log('# In chart directive');
     return {
         link: function(scope, element, attrs) {
-            // element.ready(function(){
             var plot1 = $.jqplot ('chart1', [[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]], {
                     title: 'Main Chart',
                     axesDefaults: {
@@ -78,6 +77,10 @@ app.directive('chart', function() {
                 plot1.replot();
 
             });
+
+            scope.$on('duration-update', function() {
+                console.log('# duration for plot: ');
+            });
         }
     };
 });
@@ -86,10 +89,19 @@ app.directive('buttonsRadio', function() {
     return {
         restrict: 'E',
         scope: { model: '=', options:'='},
-        controller: function($scope){
+        controller: function($scope) {
             $scope.activate = function(option){
                 $scope.model = option;
+                                // $scope.$broadcast('duration-update');
+                // $scope.$apply();
             };
+        },
+        link: function(scope, element, attrs) {
+            element.bind('click', function(e) {
+                // console.log('# duration for plot: ');
+                scope.$broadcast('duration-update');
+                scope.$apply();
+            });
         },
         template: "<button type='button' class='btn' "+
                     "ng-class='{active: option == model}'"+
