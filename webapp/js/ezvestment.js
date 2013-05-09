@@ -20,10 +20,11 @@ function AllocCtrl($scope) {
     $scope.portionBounds = 100;
     $scope.portionStocks = 0;
 
-    $scope.myOptions = ['1y', '5y', '10y', 'Set Target'];
-    $scope.myModel = '10y';
+    $scope.durations = ['1y', '5y', '10y', 'Set Target'];
+    $scope.mySelection = '10y';
 
-    $scope.$watch('myModel', function(v){
+    $scope.$watch('mySelection', function(v){
         console.log('# Duration changed to:', v);
+        // $scope.$apply();
     });
 }

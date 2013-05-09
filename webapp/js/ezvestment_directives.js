@@ -26,7 +26,6 @@ app.directive('tooltip', function() {
     console.log('# In Tooltip directive');
     return {
         restrict:'A',
-        // require: 'slider',
         link: function(scope, element, attrs) {
             element.tooltip({
                 placement: 'top',
@@ -41,45 +40,55 @@ app.directive('chart', function() {
     return {
         link: function(scope, element, attrs) {
             var plot1 = $.jqplot ('chart1', [[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]], {
-                    title: 'Main Chart',
-                    axesDefaults: {
-                        labelRenderer: $.jqplot.CanvasAxisLabelRenderer
+                title: 'Main Chart',
+                axesDefaults: {
+                    labelRenderer: $.jqplot.CanvasAxisLabelRenderer
+                },
+                series: [{
+                    showMarker: false
+                }],
+                axes: {
+                    xaxis: {
+                        min: 0,
+                        max: 10,
+                        numberTicks: 11,
+                        label: 'Year'
                     },
-                    series: [{
-                        showMarker: false
-                    }],
-                    axes: {
-                        xaxis: {
-                            min: 0,
-                            max: 10,
-                            numberTicks: 11,
-                            label: '% of Return'
-                        },
-                        yaxis : {
-                            min: 0,
-                            max: 100,
-                            label: 'Year'
-                        }
+                    yaxis : {
+                        min: 0,
+                        max: 100,
+                        label: '% of Return'
                     }
-                });
-
-            scope.$on('slider-update', function() {
-
-                var newData = [];
-                for (i = 1; i < 10; i++) {
-                    x = i;
-                    y = scope.portionStocks*i/10;
-                    newData.push([x, y]);
                 }
-
-                plot1.series[0].data = newData;
-                // scope.plot1.resetAxesScale();
-                plot1.replot();
-
             });
 
-            scope.$on('duration-update', function() {
-                console.log('# duration for plot: ');
+            function redraw(year) {
+                var regex = /([0-9]+)\w/;
+                var matches = regex.exec(year);
+
+                if (matches) {
+                    var durationYear = matches[1];
+
+                    var newData = [];
+                    for (i = 1; i < durationYear; i ++) {
+                        x = i;
+                        y = scope.portionStocks*i/10;
+                        newData.push([x, y]);
+                    }
+
+                    plot1.series[0].data = newData;
+                    // plot1.resetAxesScale();
+                    plot1.replot();
+                }
+            }
+
+            scope.$on('slider-update', function() {
+                redraw(scope.mySelection);
+            });
+
+            scope.$on('btn-grp-update', function() {
+                // console.log('# Duration changed to:', option);
+                redraw(scope.mySelection);
             });
         }
     };
@@ -89,19 +98,11 @@ app.directive('buttonsRadio', function() {
     return {
         restrict: 'E',
         scope: { model: '=', options:'='},
-        controller: function($scope) {
-            $scope.activate = function(option){
+        controller: function($scope, $rootScope) {
+            $scope.activate = function(option) {
                 $scope.model = option;
-                                // $scope.$broadcast('duration-update');
-                // $scope.$apply();
+                $rootScope.$broadcast('btn-grp-update');
             };
-        },
-        link: function(scope, element, attrs) {
-            element.bind('click', function(e) {
-                // console.log('# duration for plot: ');
-                scope.$broadcast('duration-update');
-                scope.$apply();
-            });
         },
         template: "<button type='button' class='btn' "+
                     "ng-class='{active: option == model}'"+
