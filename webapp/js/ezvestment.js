@@ -21,10 +21,9 @@ function AllocCtrl($scope) {
     $scope.portionStocks = 0;
 
     $scope.durations = ['1y', '5y', '10y', 'Set Target'];
-    $scope.mySelection = '10y';
+    $scope.duration = '10y';
 
-    $scope.$watch('mySelection', function(v){
-        console.log('# Duration changed to:', v);
-        // $scope.$apply();
-    });
+    // $scope.$watch('duration', function(v){
+    //     console.log('# COntyroller - Duration changed to:', v);
+    // });
 }

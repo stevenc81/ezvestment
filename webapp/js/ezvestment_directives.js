@@ -83,12 +83,11 @@ app.directive('chart', function() {
             }
 
             scope.$on('slider-update', function() {
-                redraw(scope.mySelection);
+                redraw(scope.duration);
             });
 
             scope.$on('btn-grp-update', function() {
-                // console.log('# Duration changed to:', option);
-                redraw(scope.mySelection);
+                redraw(scope.duration);
             });
         }
     };
@@ -97,17 +96,17 @@ app.directive('chart', function() {
 app.directive('buttonsRadio', function() {
     return {
         restrict: 'E',
-        scope: { model: '=', options:'='},
-        controller: function($scope, $rootScope) {
+        controller: function($scope) {
             $scope.activate = function(option) {
-                $scope.model = option;
-                $rootScope.$broadcast('btn-grp-update');
+                $scope.duration = option;
+                $scope.$broadcast('btn-grp-update');
             };
         },
         template: "<button type='button' class='btn' "+
-                    "ng-class='{active: option == model}'"+
+                    "ng-class='{active: option == duration}'"+
                     "ng-repeat='option in options' "+
-                    "ng-click='activate(option)'>{{option}} "+
+                    "ng-click='activate(option)'"+
+                    ">{{option}} " +
                   "</button>"
     };
 });
