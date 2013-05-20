@@ -93,6 +93,38 @@ app.directive('chart', function() {
     };
 });
 
+app.directive('hchart', function() {
+    console.log('# In hchart directive');
+
+    return {
+        link: function(scope, element, attrs) {
+            console.log('dlfkdklfj');
+            var chartsDefault = new Highcharts.StockChart({
+                chart: {
+                    renderTo: element[0],
+                    type: attrs.type || null,
+                    height: attrs.height || null,
+                    width: attrs.width || null
+                },
+
+                yAxis: [{}, {
+                    linkedTo: 0,
+                    opposite: true
+                }],
+
+                rangeSelector: {
+                    selected: 1
+                },
+
+                series: [{
+                    name: 'USD to EUR',
+                    data: usdeur
+                }]
+            });
+        }
+    };
+});
+
 app.directive('buttonsRadio', function() {
     return {
         restrict: 'E',
