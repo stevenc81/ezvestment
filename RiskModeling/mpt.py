@@ -35,7 +35,7 @@ class StockModel():
     def _calculate_beta(self):
         bench_returns, returns = make_same_size_array(np.array(sp500_returns), self.daily_returns)
 
-        covarianceMatrix = np.cov(bench_returns, returns)
+        covarianceMatrix = np.cov(returns, bench_returns)
         covariance = covarianceMatrix[0][1]
 
         beta = covariance / np.var(bench_returns)
@@ -44,11 +44,13 @@ class StockModel():
 
     def _calculate_expected_return(self):
         beta = self.beta
-        # yield from 10 yr treasury
-        riskFreeRateOfInterest = 0.03
-        expectedReturnMarket = 0.11
+        # yield from 3 months treasury
+        riskFreeRateOfInterest = 0.05
 
-        expectedReturn = riskFreeRateOfInterest + beta*(expectedReturnMarket - riskFreeRateOfInterest)
+        # 2012 yeild for S&P 500
+        expectedReturnMarket = 13.4
+
+        expectedReturn = riskFreeRateOfInterest + beta * (expectedReturnMarket - riskFreeRateOfInterest)
         return expectedReturn
 
     def _calculate_performance(self):
@@ -95,4 +97,12 @@ if __name__ == "__main__":
             "Ticker: ",
             stockModel.ticker,
             " Volatility: ", str(stockModel.daily_volatility),
+            " Beta: ", str(stockModel.beta),
             " Return: ", str(stockModel.expected_return)])
+
+        filehandle = open('data/result.csv', 'a')
+        filehandle.write("".join([
+            stockModel.ticker, ',',
+            str(stockModel.daily_volatility), ',',
+            str(stockModel.expected_return), '\n']))
+        filehandle.close()
