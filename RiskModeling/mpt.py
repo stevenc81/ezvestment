@@ -1,39 +1,58 @@
 from data.getdata import get_ticker_history, scrape_free_etfs
-import os, glob
 import math
 import numpy as np
 
+#
+# Constants
+#
+# yield from 3 months treasury
+RFR = 0.05
+
+# 2012 yeild for S&P 500
+ERM = 13.4
+
+BENCH_TICKER = '^GSPC'
+
 dataPath = 'data/'
-sp500_returns = []
 
 
 class StockModel():
-    def __init__(self, ticker):
+    def __init__(self, ticker, ticker_history, bench_history, rfr, erm):
         self.ticker = ticker
-        self.data = []
+        self.ticker_history = np.array(ticker_history)
+        self.bench_history = np.array(bench_history)
+        self.rfr = rfr
+        self.erm = erm
 
-        filehandle = open('data/' + ticker + '.csv', 'r')
-        lines = filehandle.readlines()
-
-        for row in range(1, len(lines)):
-            date, openPrice, highPrice, lowPrice, closePrice, volume, adjClose = lines[row].strip().split(',')
-            self.data.append(float(adjClose))
-
-        filehandle.close()
+        self.expected_return = 0
+        self.daily_volatility = 0
+        self.beta = 0
 
         self._calculate_performance()
+
+    def get_ticker(self):
+        return self.ticker
+
+    def get_expected_return(self):
+        return self.expected_return
+
+    def get_daily_volatility(self):
+        return self.daily_volatility
+
+    def get_beta(self):
+        return self.beta
 
     def _calculate_return(self):
         daily_returns = []
 
-        for i in range(len(self.data) - 1):
-            perc_return = math.log(self.data[i+1]/self.data[i])
+        for i in range(len(self.ticker_history) - 1):
+            perc_return = math.log(self.ticker_history[i + 1] / self.ticker_history[i])
             daily_returns.append(perc_return)
 
-        return daily_returns
+        return np.array(daily_returns)
 
-    def _calculate_beta(self):
-        bench_returns, returns = make_same_size_array(np.array(sp500_returns), self.daily_returns)
+    def _calculate_beta(self, daily_returns):
+        bench_returns, returns = self._make_same_size_array(self.bench_history, daily_returns)
 
         covarianceMatrix = np.cov(returns, bench_returns)
         covariance = covarianceMatrix[0][1]
@@ -42,67 +61,86 @@ class StockModel():
 
         return beta
 
-    def _calculate_expected_return(self):
-        beta = self.beta
-        # yield from 3 months treasury
-        riskFreeRateOfInterest = 0.05
-
-        # 2012 yeild for S&P 500
-        expectedReturnMarket = 13.4
-
-        expectedReturn = riskFreeRateOfInterest + beta * (expectedReturnMarket - riskFreeRateOfInterest)
-        return expectedReturn
+    def _calculate_expected_return(self, beta):
+        return self.rfr + beta * (self.erm - self.rfr)
 
     def _calculate_performance(self):
-        self.daily_returns = np.array(self._calculate_return())
-        self.daily_volatility = self.daily_returns.std()
-        self.beta = self._calculate_beta()
-        self.expected_return = self._calculate_expected_return()
+        daily_returns = self._calculate_return()
+        self.daily_volatility = daily_returns.std()
+        self.beta = self._calculate_beta(daily_returns)
+
+        self.expected_return = self._calculate_expected_return(self.beta)
+
+    def _make_same_size_array(self, x, y):
+        #based on the assumption that every company has prices up to today...
+        cutArray = []
+        smallArray = []
+
+        if len(x) > len(y):
+            index = len(x) - len(y)
+            cutArray = x[index:]
+            smallArray = y
+        elif len(x) < len(y):
+            index = len(y) - len(x)
+            cutArray = y[index:]
+            smallArray = x
+        else:
+            return (x, y)
+
+        return (cutArray, smallArray)
 
 
-def make_same_size_array(x, y):
+class PortfolioModel():
+    def __init__(self, tickers, bench_ticker, rfr, erm):
+        get_ticker_history(tickers)
+        get_ticker_history([bench_ticker])
 
-    #based on the assumption that every company has prices up to today...
-    cutArray = []
-    smallArray = []
+        bench_history = []
+        filehandle = open('data/' + bench_ticker + '.csv', 'r')
+        lines = filehandle.readlines()
+        for row in range(1, len(lines)):
+                date, openPrice, highPrice, lowPrice, closePrice, volume, adjClose = lines[row].strip().split(',')
+                bench_history.append(float(adjClose))
+        filehandle.close()
 
-    if len(x) > len(y):
-        index = len(x) - len(y)
-        cutArray = x[index:]
-        smallArray = y
-    elif len(x) < len(y):
-        index = len(y) - len(x)
-        cutArray = y[index:]
-        smallArray = x
-    else:
-        return (x, y)
+        self.stocks = []
+        for ticker in tickers:
+            ticker_history = []
+            filehandle = open('data/' + ticker + '.csv', 'r')
+            lines = filehandle.readlines()
 
-    return (cutArray, smallArray)
+            for row in range(1, len(lines)):
+                date, openPrice, highPrice, lowPrice, closePrice, volume, adjClose = lines[row].strip().split(',')
+                ticker_history.append(float(adjClose))
+            filehandle.close()
+
+            self.stocks.append(
+                StockModel(
+                    ticker,
+                    ticker_history,
+                    bench_history,
+                    rfr,
+                    erm))
+
+    def get_stocks(self):
+        return self.stocks
+
 
 if __name__ == "__main__":
-    get_ticker_history(scrape_free_etfs())
-    get_ticker_history(['^GSPC'])
 
-    filehandle = open('data/^GSPC.csv', 'r')
-    lines = filehandle.readlines()
-    for row in range(1, len(lines)):
-            date, openPrice, highPrice, lowPrice, closePrice, volume, adjClose = lines[row].strip().split(',')
-            sp500_returns.append(float(adjClose))
-    filehandle.close()
+    # get_ticker_history(['CHIQ', 'FSG', 'GLD', 'GMF', 'IPK', 'TAO', 'VGK', 'VPL', 'VWO'])
+    portfolio = PortfolioModel(scrape_free_etfs(), BENCH_TICKER, RFR, ERM)
 
-    for infile in glob.glob(os.path.join(dataPath, '*.csv')):
-        ticker = infile.split('/')[1].split('.')[0]
-        stockModel = StockModel(ticker)
+    for stock in portfolio.get_stocks():
         print "".join([
             "Ticker: ",
-            stockModel.ticker,
-            " Volatility: ", str(stockModel.daily_volatility),
-            " Beta: ", str(stockModel.beta),
-            " Return: ", str(stockModel.expected_return)])
+            stock.get_ticker(),
+            " Volatility: ", str(stock.get_daily_volatility()),
+            " Beta: ", str(stock.get_beta()),
+            " Return: ", str(stock.get_expected_return())])
 
-        filehandle = open('data/result.csv', 'a')
-        filehandle.write("".join([
-            stockModel.ticker, ',',
-            str(stockModel.daily_volatility), ',',
-            str(stockModel.expected_return), '\n']))
-        filehandle.close()
+        # filehandle = open('data/result.csv', 'a')
+        # filehandle.write("".join([
+        #     stock.get_ticker(), ',',
+        #     str(stock.get_daily_volatility()), ',',
+        #     str(stock.get_expected_return()), '\n']))
