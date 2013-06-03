@@ -1,4 +1,4 @@
-from data.getdata import get_ticker_history, scrape_free_etfs
+import getdata
 import math
 import numpy as np
 
@@ -92,27 +92,28 @@ class StockModel():
 
 class PortfolioModel():
     def __init__(self, tickers, bench_ticker, rfr, erm):
-        get_ticker_history(tickers)
-        get_ticker_history([bench_ticker])
+        getdata.get_ticker_history(tickers)
+        getdata.get_ticker_history([bench_ticker])
 
         bench_history = []
-        filehandle = open('data/' + bench_ticker + '.csv', 'r')
-        lines = filehandle.readlines()
+        with open('data/' + bench_ticker + '.csv', 'r') as f:
+            lines = f.readlines()
+
         for row in range(1, len(lines)):
-                date, openPrice, highPrice, lowPrice, closePrice, volume, adjClose = lines[row].strip().split(',')
-                bench_history.append(float(adjClose))
-        filehandle.close()
+            date, openPrice, highPrice, lowPrice, closePrice, volume, adjClose = \
+                lines[row].strip().split(',')
+            bench_history.append(float(adjClose))
 
         self.stocks = []
         for ticker in tickers:
             ticker_history = []
-            filehandle = open('data/' + ticker + '.csv', 'r')
-            lines = filehandle.readlines()
+            with open('data/' + ticker + '.csv', 'r') as f:
+                lines = f.readlines()
 
             for row in range(1, len(lines)):
-                date, openPrice, highPrice, lowPrice, closePrice, volume, adjClose = lines[row].strip().split(',')
+                date, openPrice, highPrice, lowPrice, closePrice, volume, adjClose = \
+                    lines[row].strip().split(',')
                 ticker_history.append(float(adjClose))
-            filehandle.close()
 
             self.stocks.append(
                 StockModel(
@@ -129,7 +130,7 @@ class PortfolioModel():
 if __name__ == "__main__":
 
     # get_ticker_history(['CHIQ', 'FSG', 'GLD', 'GMF', 'IPK', 'TAO', 'VGK', 'VPL', 'VWO'])
-    portfolio = PortfolioModel(scrape_free_etfs(), BENCH_TICKER, RFR, ERM)
+    portfolio = PortfolioModel(getdata.scrape_all_vanguard_etfs(), BENCH_TICKER, RFR, ERM)
 
     for stock in portfolio.get_stocks():
         print "".join([
@@ -139,8 +140,8 @@ if __name__ == "__main__":
             " Beta: ", str(stock.get_beta()),
             " Return: ", str(stock.get_expected_return())])
 
-        # filehandle = open('data/result.csv', 'a')
-        # filehandle.write("".join([
-        #     stock.get_ticker(), ',',
-        #     str(stock.get_daily_volatility()), ',',
-        #     str(stock.get_expected_return()), '\n']))
+        with open('data/result.csv', 'a') as f:
+            f.write("".join([
+                stock.get_ticker(), ',',
+                str(stock.get_daily_volatility()), ',',
+                str(stock.get_expected_return()), '\n']))
