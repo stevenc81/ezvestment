@@ -130,7 +130,7 @@ class PortfolioModel():
 if __name__ == "__main__":
 
     # get_ticker_history(['CHIQ', 'FSG', 'GLD', 'GMF', 'IPK', 'TAO', 'VGK', 'VPL', 'VWO'])
-    portfolio = PortfolioModel(getdata.scrape_all_vanguard_etfs(), BENCH_TICKER, RFR, ERM)
+    portfolio = PortfolioModel(getdata.scrape_all_ishare_etfs(), BENCH_TICKER, RFR, ERM)
 
     for stock in portfolio.get_stocks():
         print "".join([

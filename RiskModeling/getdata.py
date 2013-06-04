@@ -28,9 +28,9 @@ def scrape_all_vanguard_etfs():
     soup = BeautifulSoup(results.text)
 
     for tr in soup('tr', {'class': re.compile(r'wr|ar')}, index=re.compile(r'[0-9]+')):
-        for index, value in enumerate(tr('td')):
-            if index == 2:
-                tickers.append(str(value.text))
+        tds = tr('td')
+        if len(tds) > 2:
+            tickers.append(str(tds[2].text))
 
     return tickers
 
@@ -42,16 +42,15 @@ def scrape_all_ishare_etfs():
         "http://us.ishares.com/product_info/fund/index.htm")
     soup = BeautifulSoup(results.text)
 
-    table = soup('table', id='fundListTable')
-    print len(table)
-    print type(table)
-
-    for tr in table.find_all('tr'):
-        for index, value in enumerate(tr('td')):
-            if index == 0:
-                print value.text
+    for tr in soup.findAll('tr'):
+        tds = tr('td')
+        if len(tds) > 0:
+            s = str(tds[0].text)
+            m = re.search(r'\(([A-Z]+)\)', s)
+            tickers.append(m.group(1))
 
     return tickers
+
 
 def get_ticker_history(tickers=["^GSPC"]):
     enddate = datetime.date.today()
