@@ -121,7 +121,7 @@ class PortfolioModel(object):
                 rfr,
                 erm)
 
-            self.mix[ticker] = 1 / len(tickers)
+            self.mix[ticker] = 1.0 / len(tickers)
 
     def get_stocks(self):
         return self.stocks
@@ -184,33 +184,33 @@ class PortfolioModel(object):
         isell = 0
 
         for i in range(len(self.tickers)):
-            if x[i] < upper_bound_weight: # possible buy
-                if mu[i,0] > mubuy:
-                    mubuy = mu[i,0]
+            if x[i] < upper_bound_weight:  # possible buy
+                if mu[i, 0] > mubuy:
+                    mubuy = mu[i, 0]
                     ibuy = i
 
             if x[i] > lower_bound_weight:  # possible sell
-                if mu[i,0] < musell:
-                    musell = mu[i,0]
+                if mu[i, 0] < musell:
+                    musell = mu[i, 0]
                     isell = i
 
-        if (mubuy-musell)<=0.0001:
-            ibuy=isell=0
+        if (mubuy-musell) <= 0.0001:
+            ibuy = isell = 0
 
         s = np.zeros(mu.shape)
-        s[isell]=-1.0
-        s[ibuy]=1.0
+        s[isell] = -1.0
+        s[ibuy] = 1.0
         s = np.mat(s)
 
         rates = np.array([self.stocks[ticker].daily_returns
-            for ticker in self.tickers])
+                          for ticker in self.tickers])
         C = np.mat(np.cov(rates))
 
         k0 = s.T*mu
         k1 = (s.T*C*s)/rt
 
         amat = k0/(2*k1)
-        a = amat[0,0]
+        a = amat[0, 0]
 
         # a change of weights according to 'a' will yield a utility
         # change as indicated below.  This is not currently returned or used anywhere,
@@ -228,6 +228,8 @@ class PortfolioModel(object):
         if self.mix[symb_buy] + a > upper_bound_weight:
             a = upper_bound_weight - self.mix[symb_buy]
 
+        print "#=== AAA",
+        print a
         self.mix[symb_sell] = self.mix[symb_sell] - a
         self.mix[symb_buy] = self.mix[symb_buy] + a
 
@@ -257,21 +259,20 @@ if __name__ == "__main__":
                 str(stock.get_daily_volatility()), ',',
                 str(stock.get_expected_return()), '\n']))
 
-    rt = 0.1
+    rt = 0.5
     lower_bound_weight = -0.50
     upper_bound_weight = 1.5
     a = 1.0
     count = 0
 
-    while a>0.00001:
+    while a > 0.00001:
         a = portfolio.step_port_return(rt, lower_bound_weight,
-                                  upper_bound_weight)
-
-        count+=1
+                                       upper_bound_weight)
+        count += 1
 
     result = portfolio.evaluate_holdings()
     # variance = round(result[0],3)
-    ret = round(result*100.,3)
+    ret = round(result * 100., 3)
 
     print("Optimization completed in [ %s ] iterations." % count)
     print("Ending weights:\n%s" % portfolio.mix)
